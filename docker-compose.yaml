@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  rabbitmq1:
+    image: "rabbitmq:3.9.9-management"
+    hostname: "rabbitmq1"
+    ports:
+      - "5674:5672"
+      - "15674:15672"
+    volumes:
+      - "/var/lib/rabbitmq/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie"
+
+  rabbitmq2:
+    image: "rabbitmq:3.9.9-management"
+    hostname: "rabbitmq2"
+    ports:
+      - "5675:5672"
+      - "15675:15672"
+    links:
+      - "rabbitmq1:rabbitmq1"
+    volumes:
+      - "/var/lib/rabbitmq/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie"
+
+  rabbitmq3:
+    image: "rabbitmq:3.9.9-management"
+    hostname: "rabbitmq3"
+    ports:
+      - "5676:5672"
+      - "15676:15672"
+    links:
+      - "rabbitmq1:rabbitmq1"
+      - "rabbitmq2:rabbitmq2"
+    volumes:
+      - "/var/lib/rabbitmq/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie"
+
+  rabbitmq4:
+    image: "rabbitmq:3.9.9-management"
+    hostname: "rabbitmq4"
+    ports:
+      - "5677:5672"
+      - "15677:15672"
+    links:
+      - "rabbitmq1:rabbitmq1"
+      - "rabbitmq2:rabbitmq2"
+      - "rabbitmq3:rabbitmq3"
+    volumes:
+      - "/var/lib/rabbitmq/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie"
+
